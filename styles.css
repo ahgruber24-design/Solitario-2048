@@ -1,0 +1,223 @@
+/* ==========================================
+   RESETEO Y ESTILOS BASE
+   ========================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #faf8ef;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* ==========================================
+   ESTRUCTURA DEL JUEGO
+   ========================================== */
+.game-container {
+    width: 100%;
+    max-width: 450px;
+    background: #bbada0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    color: white;
+}
+
+h1 {
+    font-size: 28px;
+}
+
+.scoreboard {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    background: #8f7a66;
+    padding: 10px 15px;
+    border-radius: 6px;
+}
+
+.scoreboard p {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+button {
+    padding: 8px 15px;
+    background: #f59563;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #f67c5f;
+}
+
+/* ==========================================
+   MAZO Y ZONA DE JUEGO
+   ========================================== */
+.deck-area {
+    text-align: center;
+    margin-bottom: 20px;
+    color: white;
+    background: #a39485;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.deck-area h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+#current-card {
+    margin: 0 auto;
+    width: 80px;
+    height: 80px;
+}
+
+.board {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    background: #a39485;
+    padding: 10px;
+    border-radius: 8px;
+    height: 450px;
+}
+
+.column {
+    flex: 1;
+    background: #cdc1b4;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column-reverse;
+    /* Hace que las cartas se apilen desde abajo */
+    padding: 5px;
+    gap: 5px;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    transition: background 0.2s;
+}
+
+.column:hover {
+    background: #d4c8bd;
+    /* Efecto visual para saber en qué columna se hará clic */
+}
+
+/* ==========================================
+   DISEÑO DE LAS CARTAS Y ANIMACIONES
+   ========================================== */
+/* Las cartas deben tener el número centrado */
+.card {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 5px;
+    background: #eee4da;
+    color: #776e65;
+    animation: dropIn 0.3s ease-out;
+    /* Animación para que la carta viaje */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.card.empty {
+    background: transparent;
+    box-shadow: none;
+    animation: none;
+    border: 2px dashed #cdc1b4;
+}
+
+/* Animación de caída para simular que la carta viaja hasta su posición */
+@keyframes dropIn {
+    0% {
+        transform: translateY(-200px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Colores que cambian según su valor */
+.card[data-value="2"] {
+    background: #eee4da;
+}
+
+.card[data-value="4"] {
+    background: #ede0c8;
+}
+
+.card[data-value="8"] {
+    background: #f2b179;
+    color: white;
+}
+
+.card[data-value="16"] {
+    background: #f59563;
+    color: white;
+}
+
+.card[data-value="32"] {
+    background: #f67c5f;
+    color: white;
+}
+
+.card[data-value="64"] {
+    background: #f65e3b;
+    color: white;
+}
+
+.card[data-value="128"] {
+    background: #edcf72;
+    color: white;
+    font-size: 20px;
+}
+
+.card[data-value="256"] {
+    background: #edcc61;
+    color: white;
+    font-size: 20px;
+}
+
+.card[data-value="512"] {
+    background: #edc850;
+    color: white;
+    font-size: 20px;
+}
+
+.card[data-value="1024"] {
+    background: #edc53f;
+    color: white;
+    font-size: 18px;
+}
+
+.card[data-value="2048"] {
+    background: #edc22e;
+    color: white;
+    font-size: 18px;
+    box-shadow: 0 0 15px rgba(243, 215, 116, 0.8);
+}

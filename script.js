@@ -1,20 +1,32 @@
+// ==========================================
+// VARIABLES GLOBALES Y CONFIGURACIÓN
+// ==========================================
 const COLUMNS = 4;
-const MAX_CARDS = 8; // Límite de cartas por columna[cite: 1]
+const MAX_CARDS = 8; // Límite de cartas por columna para la condición de derrota[cite: 1]
 let score = 0;
 let currentCardValue = 0;
 let grid = [[], [], [], []]; // Representa las 4 columnas
+let gameOver = false; // Controla si el juego ha terminado
 
 const possibleCards = [2, 4, 8, 16, 32]; // Valores generados aleatoriamente[cite: 1]
 
-// Referencias al DOM
+// ==========================================
+// REFERENCIAS AL DOM
+// ==========================================
 const scoreEl = document.getElementById('score');
 const currentCardEl = document.getElementById('current-card');
 const columnsEl = document.querySelectorAll('.column');
 const restartBtn = document.getElementById('restart-btn');
 
+// ==========================================
+// FUNCIONES PRINCIPALES
+// ==========================================
+
+// Inicializa o reinicia el estado del juego
 function initGame() {
     score = 0;
     grid = [[], [], [], []];
+    gameOver = false; // Reiniciamos el estado al empezar
     updateScore(0);
     generateNewCard();
     renderBoard();
@@ -28,10 +40,11 @@ function generateNewCard() {
     currentCardEl.setAttribute('data-value', currentCardValue);
 }
 
-// Actualiza el DOM para reflejar la cuadrícula
+// Actualiza el DOM para reflejar la cuadrícula internamente
 function renderBoard() {
     columnsEl.forEach((colEl, index) => {
-        colEl.innerHTML = ''; // Limpiar
+        colEl.innerHTML = ''; // Limpiar la columna antes de re-dibujar
+
         grid[index].forEach(value => {
             const card = document.createElement('div');
             card.classList.add('card');
@@ -42,54 +55,72 @@ function renderBoard() {
     });
 }
 
-// Interacción al hacer clic para soltar la carta[cite: 1]
+// Lógica de interacción al hacer clic para soltar la carta[cite: 1]
 function dropCard(colIndex) {
+    // Si el juego ya terminó, ignoramos los clics
+    if (gameOver) return;
+
+    // Verificamos si la columna excede el límite máximo de cartas[cite: 1]
     if (grid[colIndex].length >= MAX_CARDS) {
-        alert("¡Columna llena! Fin del juego."); // Condición de derrota básica[cite: 1]
+        // Condición de derrota activada[cite: 1]
+        gameOver = true;
+        alert("¡Columna llena! Fin del juego. Presiona Reiniciar para volver a jugar.");
         return;
     }
 
+    // Añadimos la carta a la lógica interna de la columna
     grid[colIndex].push(currentCardValue);
 
-    // Iniciar el sistema de fusión[cite: 1]
+    // Iniciar el sistema de fusión de la columna[cite: 1]
     mergeCards(colIndex);
 
     renderBoard();
-    generateNewCard();
+
+    // Solo generamos una nueva carta si no hemos perdido tras este movimiento
+    if (!gameOver) {
+        generateNewCard();
+    }
 }
 
-// Lógica recursiva de fusión[cite: 1]
+// Lógica recursiva de fusión múltiple[cite: 1]
 function mergeCards(colIndex) {
     let column = grid[colIndex];
-    if (column.length < 2) return; // Nada que fusionar
+    if (column.length < 2) return; // Se necesitan al menos 2 cartas para fusionar
 
     let topCard = column[column.length - 1];
     let cardBelow = column[column.length - 2];
 
-    // Combinar si tienen el mismo valor[cite: 1]
+    // Combinar si la carta superior y la de abajo tienen el mismo valor[cite: 1]
     if (topCard === cardBelow) {
-        column.pop(); // Quitar la carta superior
-        column[column.length - 1] *= 2; // Duplicar el valor
+        column.pop(); // Quitar la carta superior de la memoria
+        column[column.length - 1] *= 2; // Duplicar el valor de la carta base ($2+2=4$)[cite: 1]
+
+        // Sumar al marcador global
         updateScore(column[column.length - 1]);
 
-        // Efecto especial al alcanzar 2048[cite: 1]
+        // Efecto especial: Limpiar columna al alcanzar el 2048[cite: 1]
         if (column[column.length - 1] === 2048) {
             alert("¡2048 Alcanzado! Limpiando columna.");
-            grid[colIndex] = [];
-            return;
+            grid[colIndex] = []; // Vaciamos el arreglo de esta columna
+            return; // Termina la función para esta columna
         }
 
-        // Fusión múltiple (recursividad)[cite: 1]
+        // Llamada recursiva: verifica si el nuevo número se puede seguir fusionando[cite: 1]
         mergeCards(colIndex);
     }
 }
 
+// Actualiza la puntuación visual y lógica
 function updateScore(points) {
     score += points;
     scoreEl.textContent = score;
 }
 
-// Event Listeners para las 4 columnas
+// ==========================================
+// EVENT LISTENERS
+// ==========================================
+
+// Configurar clics para las 4 columnas disponibles[cite: 1]
 columnsEl.forEach(col => {
     col.addEventListener('click', (e) => {
         const colIndex = parseInt(col.getAttribute('data-col'));
@@ -97,7 +128,10 @@ columnsEl.forEach(col => {
     });
 });
 
+// Configurar el botón de reinicio
 restartBtn.addEventListener('click', initGame);
 
-// Iniciar el juego
+// ==========================================
+// INICIO DEL JUEGO
+// ==========================================
 initGame();
