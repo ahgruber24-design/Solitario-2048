@@ -60,11 +60,13 @@ function dropCard(colIndex) {
     // Si el juego ya terminó, ignoramos los clics
     if (gameOver) return;
 
-    // Verificamos si la columna excede el límite máximo de cartas[cite: 1]
-    if (grid[colIndex].length >= MAX_CARDS) {
-        // Condición de derrota activada[cite: 1]
+    // Verificamos si la columna excede el límite máximo de cartas
+    let topCard = grid[colIndex].length > 0 ? grid[colIndex][grid[colIndex].length - 1] : null;
+    
+    // Condición de derrota: si la columna está llena Y la carta no puede fusionarse
+    if (grid[colIndex].length >= MAX_CARDS && currentCardValue !== topCard) {
         gameOver = true;
-        alert("¡Columna llena! Fin del juego. Presiona Reiniciar para volver a jugar.");
+        alert("¡Columna llena y no hay fusiones posibles! Fin del juego. Presiona Reiniciar para volver a jugar.");
         return;
     }
 

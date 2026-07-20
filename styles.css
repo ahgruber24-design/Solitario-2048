@@ -99,7 +99,7 @@ button:hover {
     background: #a39485;
     padding: 10px;
     border-radius: 8px;
-    height: 450px;
+    height: 550px;
 }
 
 .column {
@@ -140,13 +140,18 @@ button:hover {
     animation: dropIn 0.3s ease-out;
     /* Animación para que la carta viaje */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    /* Propiedades para la imagen */
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .card.empty {
-    background: transparent;
+    background-color: transparent;
+    background-image: url('cartas/cartaVacia.png');
     box-shadow: none;
     animation: none;
-    border: 2px dashed #cdc1b4;
+    border: none;
 }
 
 /* Animación de caída para simular que la carta viaja hasta su posición */
@@ -164,60 +169,57 @@ button:hover {
 
 /* Colores que cambian según su valor */
 .card[data-value="2"] {
-    background: #eee4da;
+    background-image: url('cartas/carta1.png');
+    color: transparent;
 }
 
 .card[data-value="4"] {
-    background: #ede0c8;
+    background-image: url('cartas/carta2.png');
+    color: transparent;
 }
 
 .card[data-value="8"] {
-    background: #f2b179;
-    color: white;
+    background-image: url('cartas/carta3.png');
+    color: transparent;
 }
 
 .card[data-value="16"] {
-    background: #f59563;
-    color: white;
+    background-image: url('cartas/carta4.png');
+    color: transparent;
 }
 
 .card[data-value="32"] {
-    background: #f67c5f;
-    color: white;
+    background-image: url('cartas/carta5.png');
+    color: transparent;
 }
 
 .card[data-value="64"] {
-    background: #f65e3b;
-    color: white;
+    background-image: url('cartas/carta6.png');
+    color: transparent;
 }
 
 .card[data-value="128"] {
-    background: #edcf72;
-    color: white;
-    font-size: 20px;
+    background-image: url('cartas/carta7.png');
+    color: transparent;
 }
 
 .card[data-value="256"] {
-    background: #edcc61;
-    color: white;
-    font-size: 20px;
+    background-image: url('cartas/carta8.png');
+    color: transparent;
 }
 
 .card[data-value="512"] {
-    background: #edc850;
-    color: white;
-    font-size: 20px;
+    background-image: url('cartas/carta9.png');
+    color: transparent;
 }
 
 .card[data-value="1024"] {
-    background: #edc53f;
-    color: white;
-    font-size: 18px;
+    background-image: url('cartas/carta10.png');
+    color: transparent;
 }
 
 .card[data-value="2048"] {
-    background: #edc22e;
-    color: white;
-    font-size: 18px;
+    background-image: url('cartas/carta11.png');
+    color: transparent;
     box-shadow: 0 0 15px rgba(243, 215, 116, 0.8);
 }
