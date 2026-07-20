@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solitario 2048</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="game-container">
+        <header>
+            <h1>Solitario 2048</h1>
+            <div class="scoreboard">
+                <p>Puntos: <span id="score">0</span></p>
+                <button id="restart-btn">Reiniciar</button>
+            </div>
+        </header>
+
+        <main>
+            <!-- Mazo: Muestra la carta actual que el jugador debe colocar -->
+            <div class="deck-area">
+                <h3>Siguiente carta:</h3>
+                <div id="current-card" class="card empty"></div>
+            </div>
+
+            <!-- Zona de Juego: 4 columnas verticales claramente definidas -->
+            <div class="board" id="board">
+                <div class="column" data-col="0"></div>
+                <div class="column" data-col="1"></div>
+                <div class="column" data-col="2"></div>
+                <div class="column" data-col="3"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
